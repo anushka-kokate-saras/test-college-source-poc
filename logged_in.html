@@ -46,11 +46,11 @@
       .then(response => response.json())
       .then(data => {
         idToken = data.id_token;
-        const decoded = jwt_decode(idToken); // Use jwt_decode function from the library   
       })
       .catch(error => {
         console.error(error);
       });
+      const decoded = jwt_decode(idToken);
       const email = decoded.email;
       const returnTo = decoded.returnTo;
         const baseUrl = decoded.baseUrl;
