@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>You have successfully logged in</h3>
+    <label for="tokenInput">Token:</label>
+    <input type="text" id="tokenInput" placeholder="Enter your token" />
+
+    <button id="documentButton">Documentation Link</button>
+
+    <!-- Add a div element to display the API response -->
+    <div id="apiResponse"></div>
+    <br />
+    <p>
+      <a
+        href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
+        target="_blank"
+        >Logout</a
+      >
+    </p>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const getCode = urlParams.get("code");
+      console.log(getCode);
+
+      document
+        .getElementById("documentButton")
+        .addEventListener("click", function () {
+          const tokenInput = document.getElementById("tokenInput");
+          const token = tokenInput.value.trim();
+
+          // Modify the base URL and parameters for redirection
+          const redirectUrl =
+            "https://saras.helpscoutdocs.com/authcallback?token=" +
+            token +
+            "&returnTo=article/4-test1";
+
+          // Open the URL in a new tab
+          window.open(redirectUrl, "_blank");
+        });
+    </script>
+  </body>
+</html>
