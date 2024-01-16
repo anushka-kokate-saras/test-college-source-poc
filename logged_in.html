@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h3>You have successfully logged in</h3>
-    <label for="tokenInput">Token:</label>
-    <input type="text" id="tokenInput" placeholder="Enter your token" />
 
-    <button id="documentButton">Documentation Link</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-    <!-- Add a div element to display the API response -->
-    <div id="apiResponse"></div>
-    <br />
-    <p>
-      <a
-        href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
-        target="_blank"
-        >Logout</a
-      >
-    </p>
+<body>
+  <h3>You have successfully logged in</h3>
+  <button id="documentButton">Documentation Link</button>
 
-    <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const getCode = urlParams.get("code");
-      console.log(getCode);
+  <!-- Add a div element to display the API response -->
+  <div id="apiResponse"></div>
+  <br />
+  <p>
+    <a href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
+      target="_blank">Logout</a>
+  </p>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const getCode = urlParams.get("code");
+    // console.log(getCode);
+    const tokenEndpoint = 'https://test-college-source-poc.auth.us-east-2.amazoncognito.com/oauth2/token';
+    const redirectUri = 'https://anushka-kokate-saras.github.io/test-college-source-poc/logged_in.html'; // Your Redirect URI
 
-      document
-        .getElementById("documentButton")
-        .addEventListener("click", function () {
-          const tokenInput = document.getElementById("tokenInput");
-          const token = tokenInput.value.trim();
+    const formData = new URLSearchParams();
+    formData.append('grant_type', 'authorization_code');
+    formData.append('code', getCode);
+    formData.append('redirect_uri', redirectUri);
 
-          // Modify the base URL and parameters for redirection
-          const redirectUrl =
-            "https://saras.helpscoutdocs.com/authcallback?token=" +
-            token +
-            "&returnTo=article/4-test1";
+    // Add the client credentials to the headers
+    const headers = {
+      'Authorization': "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    let idToken;
+    fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: headers,
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        idToken = data.id_token;
+        const decoded = jwt_decode(idToken); // Use jwt_decode function from the library
+        const email = decoded.email;
+        const returnTo = decoded.returnTo;
+        const baseUrl = decoded.baseUrl;
+        const sharedSecret = decoded.sharedSecret;
+        // console.log(decoded);
+        const createdToken = createToken(email, sharedSecret);
+        // console.log(createdToken);
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
-          // Open the URL in a new tab
-          window.open(redirectUrl, "_blank");
-        });
-    </script>
-  </body>
+    // Your createToken function
+    const createToken = (email, sharedSecret) => {
+      const tokenPayload = {
+        exp: Math.floor(Date.now() / 1000) + 60000,
+        sub: email,
+      };
+
+      // Create signed JSON Web Token
+      return jwt.sign(tokenPayload, sharedSecret, { algorithm: 'HS512' });
+    };
+
+    document
+      .getElementById("documentButton")
+      .addEventListener("click", function () {
+
+        // Modify the base URL and parameters for redirection
+        const redirectUrl = `${baseUrl}/authcallback?token=${createdToken}&returnTo=${returnTo}`
+
+        // Open the URL in a new tab
+        window.open(redirectUrl, "_blank");
+      });
+  </script>
+</body>
+
 </html>
