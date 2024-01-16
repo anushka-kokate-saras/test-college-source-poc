@@ -46,18 +46,18 @@
       .then(response => response.json())
       .then(data => {
         idToken = data.id_token;
-        const decoded = jwt_decode(idToken); // Use jwt_decode function from the library
-        const email = decoded.email;
-        const returnTo = decoded.returnTo;
+        const decoded = jwt_decode(idToken); // Use jwt_decode function from the library   
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      const email = decoded.email;
+      const returnTo = decoded.returnTo;
         const baseUrl = decoded.baseUrl;
         const sharedSecret = decoded.sharedSecret;
         // console.log(decoded);
         const createdToken = createToken(email, sharedSecret);
         // console.log(createdToken);
-      })
-      .catch(error => {
-        console.error(error);
-      });
 
     // Your createToken function
     const createToken = (email, sharedSecret) => {
