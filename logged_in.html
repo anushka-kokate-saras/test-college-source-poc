@@ -60,14 +60,16 @@
       document
         .getElementById("documentButton")
         .addEventListener("click", function () {
-          // console.log(idToken)
+          console.log(idToken)
           const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
+          console.log(apiURL)
           fetch(apiURL, {
             method: "GET",
           })
             .then((response) => response.json())
             .then((data) => {
               const redirectUrl = data.redirect_url;
+              console.log(redirectUrl)
               // Open the URL in a new tab
               window.open(redirectUrl, "_blank");
             });
