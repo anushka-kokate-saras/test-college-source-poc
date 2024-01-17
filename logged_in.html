@@ -9,8 +9,8 @@
 
 <body>
   <h3>You have successfully logged in</h3>  
-  <label for="tokenInput">Token:</label>
-  <input type="text" id="tokenInput" placeholder="Enter your token" />
+  <!-- <label for="tokenInput">Token:</label>
+  <input type="text" id="tokenInput" placeholder="Enter your token" /> -->
   <button id="documentButton">Documentation Link</button>
 
   <!-- Add a div element to display the API response -->
@@ -48,7 +48,7 @@
       .then(response => response.json())
       .then(data => {
         idToken = data.id_token;
-        console.log(idToken)
+        
       })
       .catch(error => {
         console.error(error);
@@ -72,12 +72,13 @@
     //   // Create signed JSON Web Token
     //   return jwt.sign(tokenPayload, sharedSecret, { algorithm: 'HS512' });
     // };
-
+    console.log(idToken)
     document
       .getElementById("documentButton")
       .addEventListener("click", function () {
-        const tokenInput = document.getElementById("tokenInput");
-        const token = tokenInput.value.trim();
+        console.log(idToken)
+        // const tokenInput = document.getElementById("tokenInput");
+        // const token = tokenInput.value.trim();
 
         // Modify the base URL and parameters for redirection
         // const redirectUrl = `${baseUrl}/authcallback?token=${createdToken}&returnTo=${returnTo}`
