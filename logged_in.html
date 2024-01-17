@@ -80,7 +80,8 @@
         const token = tokenInput.value.trim();
 
         // Modify the base URL and parameters for redirection
-        const redirectUrl = `${baseUrl}/authcallback?token=${createdToken}&returnTo=${returnTo}`
+        // const redirectUrl = `${baseUrl}/authcallback?token=${createdToken}&returnTo=${returnTo}`
+        const redirectUrl = `https://cloud-peoplesoft.helpscoutdocs.com/authcallback?token=${createdToken}&returnTo=${returnTo}`
 
         // Open the URL in a new tab
         window.open(redirectUrl, "_blank");
