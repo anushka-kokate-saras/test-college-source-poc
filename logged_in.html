@@ -8,7 +8,9 @@
 </head>
 
 <body>
-  <h3>You have successfully logged in</h3>
+  <h3>You have successfully logged in</h3>  
+  <label for="tokenInput">Token:</label>
+  <input type="text" id="tokenInput" placeholder="Enter your token" />
   <button id="documentButton">Documentation Link</button>
 
   <!-- Add a div element to display the API response -->
@@ -51,29 +53,31 @@
       .catch(error => {
         console.error(error);
       });
-      const decoded = jwt_decode(idToken);
-      const email = decoded.email;
-      const returnTo = decoded.returnTo;
-      const baseUrl = decoded.baseUrl;
-      const sharedSecret = decoded.sharedSecret;
-      console.log(decoded);
-      const createdToken = createToken(email, sharedSecret);
-      console.log(createdToken);
+    //   const decoded = jwt_decode(idToken);
+    //   const email = decoded.email;
+    //   const returnTo = decoded.returnTo;
+    //   const baseUrl = decoded.baseUrl;
+    //   const sharedSecret = decoded.sharedSecret;
+    //   console.log(decoded);
+    //   const createdToken = createToken(email, sharedSecret);
+    //   console.log(createdToken);
 
-    // Your createToken function
-    const createToken = (email, sharedSecret) => {
-      const tokenPayload = {
-        exp: Math.floor(Date.now() / 1000) + 60000,
-        sub: email,
-      };
+    // // Your createToken function
+    // const createToken = (email, sharedSecret) => {
+    //   const tokenPayload = {
+    //     exp: Math.floor(Date.now() / 1000) + 60000,
+    //     sub: email,
+    //   };
 
-      // Create signed JSON Web Token
-      return jwt.sign(tokenPayload, sharedSecret, { algorithm: 'HS512' });
-    };
+    //   // Create signed JSON Web Token
+    //   return jwt.sign(tokenPayload, sharedSecret, { algorithm: 'HS512' });
+    // };
 
     document
       .getElementById("documentButton")
       .addEventListener("click", function () {
+        const tokenInput = document.getElementById("tokenInput");
+        const token = tokenInput.value.trim();
 
         // Modify the base URL and parameters for redirection
         const redirectUrl = `${baseUrl}/authcallback?token=${createdToken}&returnTo=${returnTo}`
