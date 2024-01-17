@@ -20,8 +20,7 @@
     <a href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
       target="_blank">Logout</a>
   </p>
-  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/index.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1"></script>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const getCode = urlParams.get("code");
@@ -47,32 +46,12 @@
     })
       .then(response => response.json())
       .then(data => {
-        idToken = data.id_token;
-        
+        idToken = data.id_token;        
       })
       .catch(error => {
         console.error(error);
       });
-    //   const decoded = jwt_decode(idToken);
-    //   const email = decoded.email;
-    //   const returnTo = decoded.returnTo;
-    //   const baseUrl = decoded.baseUrl;
-    //   const sharedSecret = decoded.sharedSecret;
-    //   console.log(decoded);
-    //   const createdToken = createToken(email, sharedSecret);
-    //   console.log(createdToken);
 
-    // // Your createToken function
-    // const createToken = (email, sharedSecret) => {
-    //   const tokenPayload = {
-    //     exp: Math.floor(Date.now() / 1000) + 60000,
-    //     sub: email,
-    //   };
-
-    //   // Create signed JSON Web Token
-    //   return jwt.sign(tokenPayload, sharedSecret, { algorithm: 'HS512' });
-    // };
-    console.log(idToken)
     document
       .getElementById("documentButton")
       .addEventListener("click", function () {
