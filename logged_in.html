@@ -63,7 +63,8 @@
               })
                 .then((response) => response.json())
                 .then((data) => {
-                  const redirectUrl = data.redirect_url;
+                  consolr.log(data)
+                  const redirectUrl = data.url;
                   console.log(redirectUrl);
                   // Open the URL in a new tab
                   window.open(redirectUrl, "_blank");
