@@ -25,7 +25,7 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     const getCode = urlParams.get("code");
-    console.log(getCode);
+    // console.log(getCode);
     const tokenEndpoint =
       "https://test-college-source-poc.auth.us-east-2.amazoncognito.com/oauth2/token";
     const redirectUri =
@@ -38,7 +38,7 @@
 
     // Add the client credentials to the headers
     const headers = {
-      Authorization:
+      "Authorization":
         "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
       "Content-Type": "application/x-www-form-urlencoded",
     };
@@ -53,7 +53,7 @@
       })
       .then((data) => {
         idToken = data.id_token;
-        console.log(idToken);
+
         document
           .getElementById("documentButton")
           .addEventListener("click", function () {
