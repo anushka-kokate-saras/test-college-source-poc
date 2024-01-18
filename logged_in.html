@@ -11,7 +11,7 @@
   <h3>You have successfully logged in</h3>
   <!-- <label for="tokenInput">Token:</label>
   <input type="text" id="tokenInput" placeholder="Enter your token" /> -->
-  <a id="documentLink" href="#" target="_blank">Documentation Link</a>
+  <button id="documentButton">Documentation Link</button>
 
   <!-- Add a div element to display the API response -->
   <div id="apiResponse"></div>
@@ -48,26 +48,28 @@
       headers: headers,
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        response.json()
+      })
       .then((data) => {
         idToken = data.id_token;
 
-        const documentLink = document.getElementById("documentLink");
-        documentLink.href = "#"; // Set a placeholder href for now
-
-        documentLink.addEventListener("click", function () {
-          const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
-          console.log(apiURL);
-          fetch(apiURL, {
-            method: "GET"
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              const redirectUrl = data.url;
-              // console.log(redirectUrl);
-              window.open(redirectUrl, "_blank");
-            });
-        });
+        document
+          .getElementById("documentButton")
+          .addEventListener("click", function () {
+            // console.log(idToken);
+            const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
+            console.log(apiURL);
+            fetch(apiURL, {
+              method: "GET"
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                const redirectUrl = data.url;
+                // console.log(redirectUrl);
+                window.open(redirectUrl, "_blank");
+              });
+          });
       })
       .catch((error) => {
         console.error(error);
