@@ -52,10 +52,7 @@
         .then((response) => response.json())
         .then((data) => {
           idToken = data.id_token;
-          const headers = {
-            "Access-Control-Allow-Origin":"Allow",
-            "Content-Type": "application/x-www-form-urlencoded",
-          }
+          
           document
             .getElementById("documentButton")
             .addEventListener("click", function () {
@@ -63,8 +60,7 @@
               const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
               console.log(apiURL);
               fetch(apiURL, {
-                method: "GET",
-                headers: headers
+                method: "GET"
               })
                 .then((response) => response.json())
                 .then((data) => {
