@@ -25,7 +25,6 @@ fetch(tokenEndpoint, {
     body: formData,
 })
     .then((response) => {
-        response.headers.append("Access-Control-Allow-Origin", "*");
         response.json()
     })
     .then((data) => {
