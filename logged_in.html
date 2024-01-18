@@ -60,7 +60,9 @@
               const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
               console.log(apiURL);
               fetch(apiURL, {
-                method: "GET"
+                method: "GET",
+                mode: "cors", 
+                credentials: "include",
               })
                 .then((response) => response.json())
                 .then((data) => {
