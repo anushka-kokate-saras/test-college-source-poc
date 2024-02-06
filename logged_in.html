@@ -38,7 +38,7 @@
     // Add the client credentials to the headers
     const headers = {
       Authorization:
-        "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
+      "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
       "Content-Type": "application/x-www-form-urlencoded",
     };
     let idToken;
@@ -53,7 +53,7 @@
         document
           .getElementById("documentButton")
           .addEventListener("click", function () {
-            // console.log(idToken);
+            console.log(idToken);
             const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/0013n00001pnPZw/products/54000`;
             // console.log(apiURL);
             const getHeaders = {
