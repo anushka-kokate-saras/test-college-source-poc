@@ -1,79 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <h3>You have successfully logged in</h3>
-    <!-- <label for="tokenInput">Token:</label>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>You have successfully logged in</h3>
+  <!-- <label for="tokenInput">Token:</label>
   <input type="text" id="tokenInput" placeholder="Enter your token" /> -->
-    <button id="documentButton">Documentation Link</button>
+  <button id="documentButton">Documentation Link</button>
 
-    <!-- Add a div element to display the API response -->
-    <div id="apiResponse"></div>
-    <br />
-    <p>
-      <a
-        href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
-        target="_blank"
-        >Logout</a
-      >
-    </p>
-    <script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
-<script type="text/javascript">window.Beacon('init', '139e1462-0e7b-4e3e-8389-c4bf4e682ecf')</script>
-    <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const getCode = urlParams.get("code");
-      // console.log(getCode);
-      const tokenEndpoint =
-        "https://test-college-source-poc.auth.us-east-2.amazoncognito.com/oauth2/token";
-      const redirectUri =
-        "https://anushka-kokate-saras.github.io/test-college-source-poc/logged_in.html"; // Your Redirect URI
+  <!-- Add a div element to display the API response -->
+  <div id="apiResponse"></div>
+  <br />
+  <p>
+    <a href="https://test-college-source-poc.auth.us-east-2.amazoncognito.com/login?client_id=5m21phus178clr8rpg7nqtm9rm&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fanushka-kokate-saras.github.io%2Ftest-college-source-poc%2Flogged_in.html"
+      target="_blank">Logout</a>
+  </p>
 
-      const formData = new URLSearchParams();
-      formData.append("grant_type", "authorization_code");
-      formData.append("code", getCode);
-      formData.append("redirect_uri", redirectUri);
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const getCode = urlParams.get("code");
+    // console.log(getCode);
+    const tokenEndpoint =
+      "https://test-college-source-poc.auth.us-east-2.amazoncognito.com/oauth2/token";
+    const redirectUri =
+      "https://anushka-kokate-saras.github.io/test-college-source-poc/logged_in.html"; // Your Redirect URI
 
-      // Add the client credentials to the headers
-      const headers = {
-        Authorization:
-          "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
-        "Content-Type": "application/x-www-form-urlencoded",
-      };
-      let idToken;
-      fetch(tokenEndpoint, {
-        method: "POST",
-        headers: headers,
-        body: formData,
+    const formData = new URLSearchParams();
+    formData.append("grant_type", "authorization_code");
+    formData.append("code", getCode);
+    formData.append("redirect_uri", redirectUri);
+
+    // Add the client credentials to the headers
+    const headers = {
+      Authorization:
+        "Basic NW0yMXBodXMxNzhjbHI4cnBnN25xdG05cm06MTB1ZmI0ZDZhNmp2NGc4ZW1qbDg0Zmx1N2JwNGhrNXJodjRpMWN1bDk1bG81bGtqM3F1ZQ==",
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+    let idToken;
+    fetch(tokenEndpoint, {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        idToken = data.id_token;
+        document
+          .getElementById("documentButton")
+          .addEventListener("click", function () {
+            // console.log(idToken);
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/0013n00001pnPZw/products/54000`;
+            // console.log(apiURL);
+            const getHeaders = {
+              Authorization: "Bearer " + idToken,
+            };
+            fetch(apiURL, {
+              method: "GET",
+              headers: getHeaders,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // console.log(data)
+                const redirectUrl = data.url;
+                // console.log(redirectUrl);
+                window.open(redirectUrl, "_blank");
+              });
+          });
       })
-        .then((response) => response.json())
-        .then((data) => {
-          idToken = data.id_token;
-          document
-            .getElementById("documentButton")
-            .addEventListener("click", function () {
-              // console.log(idToken);
-              const apiURL = `https://u066vc0441.execute-api.us-east-2.amazonaws.com/test/getIdToken?idToken=${idToken}`;
-              // console.log(apiURL);
-              fetch(apiURL, {
-                method: "GET",
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  // console.log(data)
-                  const redirectUrl = data.url;
-                  // console.log(redirectUrl);
-                  window.open(redirectUrl, "_blank");
-                });
-            });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    </script>
-  </body>
+      .catch((error) => {
+        console.error(error);
+      });
+  </script>
+</body>
+
 </html>
