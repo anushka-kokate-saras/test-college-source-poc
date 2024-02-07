@@ -61,7 +61,8 @@
                         };
                         fetch(apiURL, {
                             method: "GET",
-                            headers: getHeaders,
+                            headers: getHeaders,,
+                            credentials: "include",
                         })
                             .then((response) => response.json())
                             .then((data) => {
