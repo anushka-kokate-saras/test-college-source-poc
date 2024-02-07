@@ -60,21 +60,20 @@
               Authorization: "Bearer " + idToken,
             };
             fetch(apiURL, {
-              method: "GET",
-              headers: getHeaders,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                // console.log(data)
-                const redirectUrl = data.url;
-                // console.log(redirectUrl);
-                window.open(redirectUrl, "_blank");
-              });
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        method: "GET",
+        headers: getHeaders,
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        // Debugging: Log the data received from the API
+        console.log("API Response Data:", data);
+
+        const redirectUrl = data.url;
+        window.open(redirectUrl, "_blank");
+    })
+    .catch((error) => {
+        console.error("Error in GET request:", error);
+    });
   </script>
 </body>
 
