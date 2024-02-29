@@ -11,7 +11,15 @@
   <h3>You have successfully logged in</h3>
   <!-- <label for="tokenInput">Token:</label>
   <input type="text" id="tokenInput" placeholder="Enter your token" /> -->
-  <button id="documentButton">Documentation Link</button>
+  <h3>institute1</h3>
+  <button id="institute1Product1">TES</button>
+  <button id="institute1Product2">TFO</button>
+  <button id="institute1Product3">uAchieve</button>
+
+  <h3>institute2</h3>
+  <button id="institute2Product1">TES</button>
+  <button id="institute2Product2">TFO</button>
+  <button id="institute2Product3">uAchieve</button>
 
   <!-- Add a div element to display the API response -->
   <div id="apiResponse"></div>
@@ -50,28 +58,99 @@
       .then((response) => response.json())
       .then((data) => {
         idToken = data.id_token;
+        const getHeaders = {
+          Authorization: "Bearer " + idToken,
+        };
+
+        // Button 1
         document
-          .getElementById("documentButton")
+          .getElementById("institute1Product1")
           .addEventListener("click", function () {
-            // console.log(idToken);
-            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/0013n00001pnPZw/products/57000`;
-            // console.log(apiURL);
-            const getHeaders = {
-              Authorization: "Bearer " + idToken,
-            };
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000007x51G/products/53000`;
             fetch(apiURL, {
               method: "GET",
               headers: getHeaders,
             })
               .then((response) => response.json())
               .then((data) => {
-                // console.log(data)
                 const redirectUrl = data.url;
-                // console.log(redirectUrl);
                 window.open(redirectUrl, "_blank");
               });
           });
+
+        // Button 2
+        document
+          .getElementById("institute1Product2")
+          .addEventListener("click", function () {
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000007x51G/products/54000`;
+            fetch(apiURL, {
+              method: "GET",
+              headers: getHeaders,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                const redirectUrl = data.url;
+                window.open(redirectUrl, "_blank");
+              });
+          });
+
+          // Button 3
+        document
+          .getElementById("institute1Product3")
+          .addEventListener("click", function () {
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000007x51G/products/69000`;
+            fetch(apiURL, {
+              method: "GET",
+              headers: getHeaders,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                const redirectUrl = data.url;
+                window.open(redirectUrl, "_blank");
+              });
+          });
+  
+        // Button 4
+        document
+          .getElementById("institute2Product1")
+          .addEventListener("click", function () {
+            alert("Station not accessible.");
+          });
+
+        // Button 5
+        document
+          .getElementById("institute2Product2")
+          .addEventListener("click", function () {
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000006JGs3/products/54000`;
+            fetch(apiURL, {
+              method: "GET",
+              headers: getHeaders,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                const redirectUrl = data.url;
+                window.open(redirectUrl, "_blank");
+              });
+          });
+
+          // Button 6
+        document
+          .getElementById("institute2Product3")
+          .addEventListener("click", function () {
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000006JGs3/products/69000`;
+            fetch(apiURL, {
+              method: "GET",
+              headers: getHeaders,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                const redirectUrl = data.url;
+                window.open(redirectUrl, "_blank");
+              });
+          });
+
       })
+      
       .catch((error) => {
         console.error(error);
       });
