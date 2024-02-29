@@ -13,12 +13,10 @@
   <input type="text" id="tokenInput" placeholder="Enter your token" /> -->
   <h3>institute1</h3>
   <button id="institute1Product1">TES</button>
-  <button id="institute1Product2">TFO</button>
   <button id="institute1Product3">uAchieve</button>
 
   <h3>institute2</h3>
   <button id="institute2Product1">TES</button>
-  <button id="institute2Product2">TFO</button>
   <button id="institute2Product3">uAchieve</button>
 
   <!-- Add a div element to display the API response -->
@@ -78,22 +76,6 @@
               });
           });
 
-        // Button 2
-        document
-          .getElementById("institute1Product2")
-          .addEventListener("click", function () {
-            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000007x51G/products/58000`;
-            fetch(apiURL, {
-              method: "GET",
-              headers: getHeaders,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                const redirectUrl = data.url;
-                window.open(redirectUrl, "_blank");
-              });
-          });
-
           // Button 3
         document
           .getElementById("institute1Product3")
@@ -112,7 +94,7 @@
   
         // Button 4
         document
-          .getElementById("institute2Product2")
+          .getElementById("institute2Product3")
           .addEventListener("click", function () {
             alert("Not accessible.");
           });
@@ -132,23 +114,6 @@
                 window.open(redirectUrl, "_blank");
               });
           });
-
-          // Button 6
-        document
-          .getElementById("institute2Product3")
-          .addEventListener("click", function () {
-            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000006JGs3/products/69000`;
-            fetch(apiURL, {
-              method: "GET",
-              headers: getHeaders,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                const redirectUrl = data.url;
-                window.open(redirectUrl, "_blank");
-              });
-          });
-
       })
       
       .catch((error) => {
