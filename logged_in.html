@@ -112,16 +112,16 @@
   
         // Button 4
         document
-          .getElementById("institute2Product1")
+          .getElementById("institute2Product2")
           .addEventListener("click", function () {
-            alert("Station not accessible.");
+            alert("Not accessible.");
           });
 
         // Button 5
         document
-          .getElementById("institute2Product2")
+          .getElementById("institute2Product1")
           .addEventListener("click", function () {
-            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000006JGs3/products/58000`;
+            const apiURL = `https://rad7x2ti91.execute-api.us-east-2.amazonaws.com/test/institutions/001Ru000006JGs3/products/53000`;
             fetch(apiURL, {
               method: "GET",
               headers: getHeaders,
